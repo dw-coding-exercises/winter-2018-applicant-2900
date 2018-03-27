@@ -5,3 +5,7 @@
 (deftest place-ocd-test
   (testing "Test that the Place OCD conversion works correctly"
     (is (= "place:new_york_city" (convert-to-place-ocd {:city "New York City"})))))
+
+(deftest state-ocd-test
+  (testing "Test that the State OCD conversion works correctly"
+    (is (= "state:ny" (convert-to-state-ocd {:state "NY"})))))
