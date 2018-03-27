@@ -131,15 +131,14 @@
     [:div.button
      [:button {:type "submit"} "Search"]]]])
 
-(defn convert-to-state-ocd [params])
+(defn convert-to-state-ocd [params]
+  (str "state:" (clojure.string/lower-case (params :state))))
 
 (defn convert-to-place-ocd [params])
 
 (defn search [request]
   (def params (get request :params))
-  (print-str (convert-to-state-ocd params))
-  (print-str (convert-to-place-ocd params)))
-
+  (print-str (convert-to-state-ocd params)))
 
 (defn page [request]
   (html5
