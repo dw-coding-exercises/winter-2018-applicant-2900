@@ -17,5 +17,6 @@
 (def handler
   (-> app
       (wrap-defaults site-defaults)
+      ;add wrap-params to the app handler.
       wrap-params
       wrap-reload))

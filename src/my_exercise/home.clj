@@ -131,6 +131,10 @@
     [:div.button
      [:button {:type "submit"} "Search"]]]])
 
+(defn search [request]
+  (print-str (get request :params)))
+
+
 (defn page [request]
   (html5
    (header request)
