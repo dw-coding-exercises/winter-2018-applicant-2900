@@ -146,7 +146,7 @@
   (def params (get request :params))
   (def state-ocd (convert-to-state-ocd params))
   (def place-ocd (convert-to-place-ocd params))
-  (print-str (create-url place-ocd state-ocd)))
+  (def url (create-url place-ocd state-ocd)))
 
 (defn page [request]
   (html5
