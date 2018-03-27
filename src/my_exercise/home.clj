@@ -2,6 +2,7 @@
   (:require [hiccup.page :refer [html5]]
             [ring.util.anti-forgery :refer [anti-forgery-field]]
             [my-exercise.us-state :as us-state]
+            ;Use clj-http.client to make the http request to democracy works API
             [clj-http.client :as client]))
 
 (defn header [_]
@@ -132,17 +133,32 @@
     [:div.button
      [:button {:type "submit"} "Search"]]]])
 
+;Convert params to a state ocd, returning the value as a string.
+;Since a person's state is always coming in a capitalized 2-letter abbreviation, I only apply the lowercase function to it.
 (defn convert-to-state-ocd [params]
   (str "state:" (clojure.string/lower-case (params :state))))
 
+;Convert params to a place ocd, returning the value as a string.
+;1st step is to apply the lowercase to it, then I replace every space with an underscore. The underscore is for multi-word cities.
+;One change that I would like to make is to add a conditional for states like LA, that have parishes instead of places.
 (defn convert-to-place-ocd [params]
   (def place (clojure.string/lower-case (params :city)))
   (str "place:" (clojure.string/replace place " " "_")))
 
+;Creates a url for the API request using the place-ocd and state-ocd.
 (defn create-url [place-ocd state-ocd]
   (str "https://api.turbovote.org/elections/upcoming?district-divisions=ocd-division/country:us/" state-ocd ",ocd-division/country:us/" state-ocd "/" place-ocd))
 
-
+;Runs the search function after the form is submitted and the post route is hit.
+;Obtains the params from the request.
+;Creates the state-ocd and place-ocd using the converters and the params.
+;Creates the url for the API request.
+;Makes an API request using the clj-http/client and then prints the response in JSON as per the accept header.
+;I didn't have enough time to be able to display the appropriate information to the voter.
+;I would want to parse through the response and display the following information: date of election, election methods, election website etc.
+;Another thing I would have like to do is to display the search result on the home page rather than going to the /search page.
+;That way, the voter could make new searches directly from the home page.
+;Also extracting all search logic into a search.clj namespace.
 (defn search [request]
   (def params (get request :params))
   (def state-ocd (convert-to-state-ocd params))

@@ -13,7 +13,7 @@
 (def test-place-ocd
   "place:new_york_city")
 
-;Define a proper state ocd for the url test. 
+;Define a proper state ocd for the url test.
 (def test-state-ocd
   "state:ny")
 
