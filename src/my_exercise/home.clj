@@ -138,10 +138,15 @@
   (def place (clojure.string/lower-case (params :city)))
   (str "place:" (clojure.string/replace place " " "_")))
 
+(defn create-url [place-ocd state-ocd]
+  (str "https://api.turbovote.org/elections/upcoming?district-divisions=ocd-division/country:us/" state-ocd ",ocd-division/country:us/" state-ocd "/" place-ocd))
+
+
 (defn search [request]
   (def params (get request :params))
   (def state-ocd (convert-to-state-ocd params))
-  (print-str (convert-to-place-ocd params)))
+  (def place-ocd (convert-to-place-ocd params))
+  (print-str (create-url place-ocd state-ocd)))
 
 (defn page [request]
   (html5
