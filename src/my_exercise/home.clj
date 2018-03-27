@@ -134,11 +134,13 @@
 (defn convert-to-state-ocd [params]
   (str "state:" (clojure.string/lower-case (params :state))))
 
-(defn convert-to-place-ocd [params])
+(defn convert-to-place-ocd [params]
+  (str "place:" (clojure.string/lower-case (params :city))))
 
 (defn search [request]
   (def params (get request :params))
-  (print-str (convert-to-state-ocd params)))
+  (def state-ocd (convert-to-state-ocd params))
+  (print-str (convert-to-place-ocd params)))
 
 (defn page [request]
   (html5
