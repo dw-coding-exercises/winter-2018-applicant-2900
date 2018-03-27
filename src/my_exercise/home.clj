@@ -135,7 +135,8 @@
   (str "state:" (clojure.string/lower-case (params :state))))
 
 (defn convert-to-place-ocd [params]
-  (str "place:" (clojure.string/lower-case (params :city))))
+  (def place (clojure.string/lower-case (params :city)))
+  (str "place:" (clojure.string/replace place " " "_")))
 
 (defn search [request]
   (def params (get request :params))
