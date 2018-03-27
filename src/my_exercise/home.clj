@@ -132,7 +132,9 @@
      [:button {:type "submit"} "Search"]]]])
 
 (defn search [request]
-  (print-str (get request :params)))
+  (def params (get request :params))
+  (print-str (convert-to-state-ocd params))
+  (print-str (convert-to-place-ocd params)))
 
 
 (defn page [request]
